@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  {% include 'recipes/partials/head.html' %}
+  <body class="bg-light">
+    {% include 'recipes/partials/navbar.html' %}
+    {% include 'recipes/partials/search.html' %}
+    <main class="container my-5">
+      {% block content %}
+      {% endblock %}
+    </main>
+    {% include 'recipes/partials/footer.html' %}
+  </body>
+</html>

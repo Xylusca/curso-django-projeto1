@@ -1,13 +1,9 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-  {% include 'recipes/partials/head.html' %}
-  <body class="bg-light">
-    {% include 'recipes/partials/navbar.html' %}
-    {% include 'recipes/partials/search.html' %}
-    <main class="container my-5">
-      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-        {% include 'recipes/partials/recipe.html' %}
-      </div>
-    </main>
-  </body>
-</html>
+{% extends 'global/base.html' %}
+
+{% block content %}
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    {% include 'recipes/partials/recipe.html' %}
+    {% include 'recipes/partials/recipe.html' %}
+    {% include 'recipes/partials/recipe.html' %}
+  </div>
+{% endblock %}
