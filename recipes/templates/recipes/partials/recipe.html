@@ -12,9 +12,9 @@
         </a>
       </h5>
       <h6 class="card-subtitle mb-2 text-muted">
-        {{ recipe.author.first_name }} {{ recipe.author.last_name }} |
-        {{ recipe.created_at|date:'d/m/Y' }} ás {{ recipe.created_at|date:'H:i' }} |
-        <strong>{{ recipe.category.name }}</strong>
+        <i class="fa-solid fa-user"></i> {{ recipe.author.first_name }} {{ recipe.author.last_name }} |
+        <i class="fa-solid fa-calendar-days"></i> {{ recipe.created_at|date:'d/m/Y' }} ás {{ recipe.created_at|date:'H:i' }} |
+        <i class="fa-regular fa-filter"></i> <strong class="text-info">{{ recipe.category.name }}</strong>
       </h6>
       <p class="card-text">{{ recipe.description }}</p>
     </div>
