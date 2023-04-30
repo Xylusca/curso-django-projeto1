@@ -1,10 +1,16 @@
 <div class="col" id="receita-view">
   <div class="card h-100">
-    <div class="ratio ratio-16x9">
-      <img src="{{ recipe.cover.url }}" class="card-img-top" alt="..." />
-    </div>
+    <a href="{% url 'recipes:recipe' recipe.id %}">
+      <div class="ratio ratio-16x9">
+        <img src="{{ recipe.cover.url }}" class="card-img-top" alt="..." />
+      </div>
+    </a>
     <div class="card-body">
-      <h5 class="card-title">{{ recipe.title }}</h5>
+      <h5 class="card-title">
+        <a href="{% url 'recipes:recipe' recipe.id %}" class="text-decoration-none text-reset">
+          {{ recipe.title }}
+        </a>
+      </h5>
       <h6 class="card-subtitle mb-2 text-muted">
         {{ recipe.author.first_name }} {{ recipe.author.last_name }} |
         {{ recipe.created_at|date:'d/m/Y' }} ás {{ recipe.created_at|date:'H:i' }} |
@@ -21,7 +27,7 @@
       </div>
     </div>
     {% if is_detail_page is not True %}
-        <a class="btn btn-dark w-100 p-3 rounded-0 rounded-bottom-2" href="recepis/3/">
+        <a class="btn btn-dark w-100 p-3 rounded-0 rounded-bottom-2" href="{% url 'recipes:recipe' recipe.id %}">
         <i class="fa-solid fa-eye text-white px-2"></i>
         <span>ver mais</span>
       </a>
