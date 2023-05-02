@@ -1,10 +1,12 @@
 <div class="col" id="receita-view">
   <div class="card h-100">
-    <a href="{% url 'recipes:recipe' recipe.id %}">
-      <div class="ratio ratio-16x9">
-        <img src="{{ recipe.cover.url }}" class="card-img-top" alt="..." />
-      </div>
-    </a>
+    {% if recipe.cover %}
+      <a href="{% url 'recipes:recipe' recipe.id %}">
+        <div class="ratio ratio-16x9">
+          <img src="{{ recipe.cover.url }}" class="card-img-top" alt="..." />
+        </div>
+      </a>
+    {% endif %}
     <div class="card-body">
       <h5 class="card-title">
         <a href="{% url 'recipes:recipe' recipe.id %}" class="text-decoration-none text-reset">
