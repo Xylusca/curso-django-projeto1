@@ -3,54 +3,67 @@
     {% if recipe.cover %}
       <a href="{% url 'recipes:recipe' recipe.id %}">
         <div class="ratio ratio-16x9">
-          <img src="{{ recipe.cover.url }}" class="card-img-top" alt="..." />
+          <img src="{{ recipe.cover.url }}" class="card-img-top" alt="Temporário" />
         </div>
       </a>
     {% endif %}
+
     <div class="card-body">
       <h5 class="card-title">
         <a href="{% url 'recipes:recipe' recipe.id %}" class="text-decoration-none text-reset">
           {{ recipe.title }}
         </a>
       </h5>
+
       <h6 class="card-subtitle mb-2 text-muted">
         <i class="fa-solid fa-user"></i>
-
-        {% if recipe.author.first_name %}
-          {{ recipe.author.first_name }} {{ recipe.author.last_name }} |
+        {% if recipe.author is not None %}
+          {% if recipe.author.first_name %}
+            {{ recipe.author.first_name }} {{ recipe.author.last_name }} |
+          {% else %}
+            {{ recipe.author.username }} |
+          {% endif %}
         {% else %}
-          {{ recipe.author.username }} |
+          Desconhecido |
         {% endif %}
+
         <i class="fa-solid fa-calendar-days"></i> {{ recipe.created_at|date:'d/m/Y' }} ás 
-        {{ recipe.created_at|date:'H:i' }} |
-        <i class="fa-regular fa-filter"></i>
-        <a href="{% url 'recipes:category' recipe.category.id %}" class="text-info link-underline">
-          {{ recipe.category.name }}
-        </a>
+        {{ recipe.created_at|date:'H:i' }}
+
+        {% if recipe.category is not None %}
+          | <i class="fa-regular fa-filter"></i>
+          <a href="{% url 'recipes:category' recipe.category.id %}" class="text-info link-underline">
+            {{ recipe.category.name }}
+          </a>
+        {% endif %}
       </h6>
+
       <p class="card-text">{{ recipe.description }}</p>
     </div>
+
     <div class="d-flex justify-content-around w-100 efeito-vidro">
       <div class="me-3 mt-3">
         <h5>Preparo</h5>
         <p class="fs-6">{{ recipe.preparation_time }} {{ recipe.preparation_time_unit }}</p>
       </div>
+
       <div class="mt-3">
         <h5>Porções</h5>
         <p class="fs-6">{{ recipe.servings }} {{ recipe.servings_unit }}</p>
       </div>
     </div>
+
     {% if is_detail_page is not True %}
-    <a class="btn btn-dark w-100 p-3 rounded-0 rounded-bottom-2" href="{% url 'recipes:recipe' recipe.id %}">
-      <i class="fa-solid fa-eye text-white px-2"></i>
-      <span>ver mais</span>
-    </a>
+      <a class="btn btn-dark w-100 p-3 rounded-0 rounded-bottom-2" href="{% url 'recipes:recipe' recipe.id %}">
+        <i class="fa-solid fa-eye text-white px-2"></i>
+        <span>ver mais</span>
+      </a>
     {% endif %}
 
     {% if is_detail_page is True %}
-    <div class="col-11 mx-auto my-3">
-      <p class="card-text">{{ recipe.preparation_steps|linebreaksbr }} </p>
-    </div>
+      <div class="col-11 mx-auto my-3">
+        <p class="card-text">{{ recipe.preparation_steps|linebreaksbr }} </p>
+      </div>
     {% endif %}
   </div>
 </div>
