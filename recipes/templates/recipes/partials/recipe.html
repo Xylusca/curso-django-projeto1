@@ -30,8 +30,8 @@
         <i class="fa-solid fa-calendar-days"></i> {{ recipe.created_at|date:'d/m/Y' }} ás 
         {{ recipe.created_at|date:'H:i' }}
 
-        {% if recipe.category is not None %}
-          | <i class="fa-regular fa-filter"></i>
+        {% if recipe.category is not None %} | 
+          <i class="fa-regular fa-filter"></i>
           <a href="{% url 'recipes:category' recipe.category.id %}" class="text-info link-underline">
             {{ recipe.category.name }}
           </a>
@@ -62,7 +62,13 @@
 
     {% if is_detail_page is True %}
       <div class="col-11 mx-auto my-3">
-        <p class="card-text">{{ recipe.preparation_steps|linebreaksbr }} </p>
+        <p class="card-text">
+        {% if recipe.preparation_steps_is_html is True %}
+          {{ recipe.preparation_steps|safe }} 
+        {% else %}
+          {{ recipe.preparation_steps|linebreaksbr }} 
+        {% endif %}
+        </p>
       </div>
     {% endif %}
   </div>

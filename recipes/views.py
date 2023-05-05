@@ -1,5 +1,4 @@
-from django.shortcuts import render
-from utils.recipes.factory import make_recipe
+from django.shortcuts import render, get_object_or_404
 
 from recipes.models import Recipe
 
@@ -18,6 +17,7 @@ def category(request, category_id):
         category__id=category_id,
         is_published=True
     ).order_by('-id')
+
     if not recipes:
         return render(request, 'recipes/pages/404.html', status=404)
 
@@ -28,7 +28,6 @@ def category(request, category_id):
 
 
 def recipe(request, id):
-    return render(request, 'recipes/pages/recipe-view.html', context={
-        'recipe': make_recipe(),
-        'is_detail_page': True,
-    })
+    recipe = get_object_or_404(Recipe, pk=id, is_published=True)
+    context = {'recipe': recipe, 'is_detail_page': True}
+    return render(request, 'recipes/pages/recipe-view.html', context=context)
