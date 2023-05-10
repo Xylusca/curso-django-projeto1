@@ -1,10 +1,10 @@
-from django.test import TestCase
 from django.urls import reverse, resolve
 from recipes import views
-from recipes.models import Category, Recipe, User
+
+from .test_recipe_base import RecipeTestBase
 
 
-class RecipesViewsTest(TestCase):
+class RecipesViewsTest(RecipeTestBase):
     def test_recipes_home_view_function_is_correct(self):
         view = resolve(reverse('recipes:home'))
         self.assertIs(view.func, views.home)
@@ -25,32 +25,14 @@ class RecipesViewsTest(TestCase):
         )
 
     def test_recipe_home_template_loads_recipes(self):
-        category = Category.objects.create(name='Category')
-        author = User.objects.create_user(
-            first_name='user',
-            last_name='name',
-            username='username',
-            password='123456',
-            email='username@email.com'
-        )
-        recipe = Recipe.objects.create(
-            category=category,
-            author=author,
-            title=' recipe title',
-            description='recipe description',
-            slug='recipe slug',
-            preparation_time=10,
-            preparation_time_unit='Minutos',
-            servings=5,
-            servings_unit='Porções',
-            preparation_steps='recipe preparation steps',
-            preparation_steps_is_html=False,
-            is_published=True,
-        )
+        self.make_recipe(author_data={
+            'first_name': 'lucas'
+        })
         response = self.client.get(reverse('recipes:home'))
         content = response.content.decode('utf-8')
         response_content_recipes = response.context['recipes']
-        self.assertIn('recipe title', content)
+
+        self.assertIn('lucas', content)
         self.assertEqual(len(response_content_recipes), 1)
 
     def test_recipes_category_view_function_is_correct(self):
