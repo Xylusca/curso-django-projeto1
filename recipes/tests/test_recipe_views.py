@@ -37,7 +37,7 @@ class RecipesViewsTest(RecipeTestBase):
 
         response = self.client.get(reverse('recipes:home'))
 
-        # Check if recipe dont exists
+        # Check if the recipe has been published or not
         self.assertIn(
             '<h1 class="fa-3x">NOT FOUND</h1>',
             response.content.decode('utf-8'),
@@ -64,6 +64,18 @@ class RecipesViewsTest(RecipeTestBase):
 
         self.assertIn(need_title, content)
 
+    def test_recipe_category_template_dont_load_recipe_not_published(self):
+        recipe = self.make_recipe(is_published=False)
+
+        response = self.client.get(reverse('recipes:home'))
+
+        # Check if the recipe has been published or not
+        response = self.client.get(
+            reverse('recipes:category', kwargs={
+                    'category_id': recipe.category.id})
+        )
+        self.assertEqual(response.status_code, 404)
+
     def test_recipes_detail_view_function_is_correct(self):
         view = resolve(reverse('recipes:recipe', kwargs={'id': 1}))
         self.assertIs(view.func, views.recipe)
@@ -83,3 +95,13 @@ class RecipesViewsTest(RecipeTestBase):
         content = response.content.decode('utf-8')
 
         self.assertIn(need_title, content)
+
+    def test_recipe_detail_template_dont_load_recipe_not_published(self):
+        recipe = self.make_recipe(is_published=False)
+
+        # Check if the recipe has been published or not
+        response = self.client.get(
+            reverse('recipes:recipe', kwargs={
+                    'id': recipe.id})
+        )
+        self.assertEqual(response.status_code, 404)
