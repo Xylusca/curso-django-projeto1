@@ -32,6 +32,17 @@ class RecipesViewsTest(RecipeTestBase):
         content = response.content.decode('utf-8')
         self.assertIn('lucas', content)
 
+    def test_recipe_home_template_dont_load_recipe_not_published(self):
+        self.make_recipe(is_published=False)
+
+        response = self.client.get(reverse('recipes:home'))
+
+        # Check if recipe dont exists
+        self.assertIn(
+            '<h1 class="fa-3x">NOT FOUND</h1>',
+            response.content.decode('utf-8'),
+        )
+
     def test_recipes_category_view_function_is_correct(self):
         view = resolve(
             reverse('recipes:category', kwargs={'category_id': 1000}))
