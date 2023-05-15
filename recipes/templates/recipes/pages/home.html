@@ -6,6 +6,7 @@
 
 {% block content %}
   {% if recipes %}
+    {% include 'recipes/partials/search.html' %}
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
       {% for recipe in recipes %}
         {% include 'recipes/partials/recipe.html' %}
