@@ -13,15 +13,6 @@
       {% endfor %}
     </div>
   {% else %}
-    <div class="container d-flex flex-column justify-content-center text-center py-5">
-      <div class="d-flex justify-content-center align-items-center pt-4">
-          <div class="d-flex align-items-center">
-              <i class="fa-solid fa-triangle-exclamation fa-6x text-warning mx-2"></i>
-              <h1 class="fa-3x">NOT FOUND</h1>
-          </div>
-      </div>
-      <p class="lead fs-3 mb-0">Oops! Página não encontra nem uma receita publicada.</p>
-      <p class="lead fs-3 pb-5">Por favor, tente novamente mais tarde.</p>
-    </div>
+    {% include 'recipes/partials/not-found.html' %}
   {% endif %}
 {% endblock %}
