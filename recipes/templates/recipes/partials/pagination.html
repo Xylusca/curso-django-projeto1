@@ -1,0 +1,23 @@
+{% if recipes.has_other_pages %}
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center mt-4">
+      {% if pagination_range.first_page_out_of_range %}
+        <li class="page-item">
+          <a class="page-link" href="?page=1" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+        </li>
+      {% endif %}
+
+      {% for page in pagination_range.pagination %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{ page }}">{{ page }}</a>
+        </li>
+      {% endfor %}
+      
+      {% if pagination_range.last_page_out_of_range %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{ pagination_range.total_pages }}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+        </li>
+      {% endif %}
+    </ul>
+  </nav>
+{% endif %}
