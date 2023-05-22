@@ -1,6 +1,5 @@
 import os
 
-from django.contrib import messages
 from django.shortcuts import render, get_object_or_404
 from django.db.models import Q
 from utils.pagination import make_pagination
@@ -14,8 +13,6 @@ def home(request):
     recipes = Recipe.objects.filter(
         is_published=True,
     ).order_by('-id')
-
-    messages.success(request, 'Que legal, foi um sucesso!')
 
     page_obj, pagination_range = make_pagination(request, recipes, PER_PAGE)
 
@@ -39,7 +36,7 @@ def category(request, category_id):
     return render(request, 'recipes/pages/category.html', context={
         'recipes': page_obj,
         'pagination_range': pagination_range,
-        'title': f'{recipes.first().category.name} - Category |',
+        'title': f'{recipes.first().category.name} - Category',
     })
 
 
@@ -66,7 +63,7 @@ def search(request):
     page_obj, pagination_range = make_pagination(request, recipes, PER_PAGE)
 
     return render(request, 'recipes/pages/search.html', {
-        'page_title': f'Search for "{search_term}" |',
+        'page_title': f'Search for "{search_term}"',
         'search_term': search_term,
         'recipes': page_obj,
         'pagination_range': pagination_range,
