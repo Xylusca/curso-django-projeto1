@@ -1,0 +1,7 @@
+{% if messages %}
+  <div class="d-flex justify-content-center">
+    {% for message in messages %}
+      <div class="text-center my-2 px-1 fs-5 col-7 rounded {{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+  </div>
+{% endif %}

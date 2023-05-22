@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-md-6 offset-md-3">
             <form action=" {% url 'recipes:search' %} " method="GET">
-                <div class="input-group">
+                <div class="input-group shadow-search">
                     <input type="search" class="form-control search-input border-0 py-2" name="q" placeholder="Pesquisar" value="{{ search_term }}" required>
                     <button type="submit" class="input-group-text border-0 bg-dark"><i class="fas fa-search text-white"></i></button>
                 </div>
