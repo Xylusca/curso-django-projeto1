@@ -4,8 +4,9 @@
   Home
 {% endblock %}
 
-
 {% block content %}
+  {% include 'recipes/partials/search.html' %}
+
   {% include 'recipes/partials/messages.html' %}
   {% if recipes %}
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
@@ -14,6 +15,6 @@
       {% endfor %}
     </div>
   {% else %}
-    {% include 'recipes/partials/not-found.html' %} 
+    {% include 'recipes/partials/not-found.html' %}
   {% endif %}
 {% endblock %}

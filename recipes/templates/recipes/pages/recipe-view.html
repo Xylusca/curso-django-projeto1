@@ -4,7 +4,9 @@
 {% endblock %}
 
 {% block content %}
-  <div class="row col-10 mx-auto" id="receita-view-pai">
+  {% include 'recipes/partials/search.html' %}
+
+  <div class="row col-10 mx-auto mb-5" id="receita-view-pai">
     {% include 'recipes/partials/recipe.html' %}
   </div>
 {% endblock %}

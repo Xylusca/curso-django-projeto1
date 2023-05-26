@@ -23,7 +23,7 @@ class RegisterForm(forms.ModelForm):
         ]
         widgets = {
             'first_name': forms.TextInput(attrs={
-                'class': 'form-control',
+                'class': 'form-control input-register',
                 'placeholder': 'Ex.: Lucas'
             }),
             'last_name': forms.TextInput(attrs={
