@@ -21,7 +21,7 @@
                   <div class="col-md-6 form-outline">
                     {% if field.errors %}
                       <div class="invalid-tooltip">{{ field.errors }}</div>
-                    {% endif %}
+                    {% endif %} 
 
                     {% comment %} <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }} <label class="text-danger">*</label></label> {% endcomment %}
 
@@ -29,7 +29,7 @@
 
                     {% if field.errors %}
                       {{ field.errors }}
-                      <script>
+                      <script> 
                         document.getElementById('{{ field.auto_id }}').classList.add('is-invalid')
                       </script>
                     {% endif %}
