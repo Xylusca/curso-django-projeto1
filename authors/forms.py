@@ -27,7 +27,6 @@ class RegisterForm(forms.ModelForm):
             attrs={
                 "placeholder": "Repeat your password",
                 "class": "form-control",
-                "label": "Repeat your password",
             }
         ),
     )
