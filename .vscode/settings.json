@@ -17,7 +17,7 @@
   ],
   "python.defaultInterpreterPath": "venv/bin/python",
   "[python]": {
-    "editor.defaultFormatter": "ms-python.python", // ms-python.python
+    "editor.defaultFormatter": "ms-python.black-formatter", // ms-python.python
     "editor.tabSize": 4,
     "editor.insertSpaces": true,
     "editor.formatOnSave": true,
@@ -60,5 +60,6 @@
     "django-html": "html", // batisteo.vscode-django
     "javascript": "javascriptreact",
     "typescript": "typescriptreact"
-  }
+  },
+  "python.formatting.provider": "none"
 }
