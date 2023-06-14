@@ -48,6 +48,41 @@ class RegisterForm(forms.ModelForm):
         validators=[strong_password],
     )
 
+    first_name = forms.CharField(
+        widget=forms.TextInput(
+            attrs={
+                "class": "form-control",
+                "placeholder": "Ex.: Lucas",
+            }
+        ),
+        error_messages={
+            "required": "Write your first name",
+        },
+    )
+
+    last_name = forms.CharField(
+        widget=forms.TextInput(
+            attrs={
+                "class": "form-control",
+                "placeholder": "Ex.: Pereira",
+            }
+        ),
+        error_messages={
+            "required": "Write your last name",
+        },
+    )
+
+    email = forms.EmailField(
+        widget=forms.EmailInput(
+            attrs={
+                "class": "form-control",
+                "placeholder": "Your e-mail",
+            }
+        ),
+        help_text="The e-mail must be valid.",
+        error_messages={"required": "E-mail is required"},
+    )
+
     class Meta:
         model = User
         fields = [
@@ -58,20 +93,8 @@ class RegisterForm(forms.ModelForm):
             "password",
         ]
         widgets = {
-            "first_name": forms.TextInput(
-                attrs={
-                    "class": "form-control input-register",
-                    "placeholder": "Ex.: Lucas",
-                }
-            ),
-            "last_name": forms.TextInput(
-                attrs={"class": "form-control", "placeholder": "Ex.: Pereira"}
-            ),
             "username": forms.TextInput(
                 attrs={"class": "form-control", "placeholder": "Your username"}
-            ),
-            "email": forms.EmailInput(
-                attrs={"class": "form-control", "placeholder": "Your e-mail"}
             ),
         }
 
@@ -81,10 +104,12 @@ class RegisterForm(forms.ModelForm):
         password = cleaned_data.get("password")
         password2 = cleaned_data.get("password2")
 
+        msg = "The entered passwords do not match. Please try again."
+
         if password != password2:
             raise ValidationError(
                 {
-                    "password": "The entered passwords do not match. Please try again.",
-                    "password2": "The entered passwords do not match. Please try again.",
+                    "password": msg,
+                    "password2": msg,
                 }
             )
