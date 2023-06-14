@@ -21,14 +21,54 @@ def strong_password(password):
 
 
 class RegisterForm(forms.ModelForm):
-    password2 = forms.CharField(
-        required=True,
-        widget=forms.PasswordInput(
+    username = forms.CharField(
+        help_text=(
+            "Username have letters, numbers or one of those @.+-_."
+            " The length should be between 4 and 150 characters."
+        ),
+        widget=forms.TextInput(
             attrs={
-                "placeholder": "Repeat your password",
                 "class": "form-control",
+                "placeholder": "Your username",
             }
         ),
+        required=True,
+        error_messages={
+            "min_length": "Username must have at least 4 characters",
+            "max_length": "Username must have less than 150 characters",
+        },
+        min_length=4,
+        max_length=150,
+    )
+
+    first_name = forms.CharField(
+        widget=forms.TextInput(
+            attrs={
+                "class": "form-control",
+                "placeholder": "Ex.: Lucas",
+            }
+        ),
+        required=True,
+    )
+
+    last_name = forms.CharField(
+        widget=forms.TextInput(
+            attrs={
+                "class": "form-control",
+                "placeholder": "Ex.: Pereira",
+            }
+        ),
+        required=True,
+    )
+
+    email = forms.EmailField(
+        widget=forms.EmailInput(
+            attrs={
+                "class": "form-control",
+                "placeholder": "Your e-mail",
+            }
+        ),
+        required=True,
     )
 
     password = forms.CharField(
@@ -48,39 +88,14 @@ class RegisterForm(forms.ModelForm):
         validators=[strong_password],
     )
 
-    first_name = forms.CharField(
-        widget=forms.TextInput(
+    password2 = forms.CharField(
+        required=True,
+        widget=forms.PasswordInput(
             attrs={
+                "placeholder": "Repeat your password",
                 "class": "form-control",
-                "placeholder": "Ex.: Lucas",
             }
         ),
-        error_messages={
-            "required": "Write your first name",
-        },
-    )
-
-    last_name = forms.CharField(
-        widget=forms.TextInput(
-            attrs={
-                "class": "form-control",
-                "placeholder": "Ex.: Pereira",
-            }
-        ),
-        error_messages={
-            "required": "Write your last name",
-        },
-    )
-
-    email = forms.EmailField(
-        widget=forms.EmailInput(
-            attrs={
-                "class": "form-control",
-                "placeholder": "Your e-mail",
-            }
-        ),
-        help_text="The e-mail must be valid.",
-        error_messages={"required": "E-mail is required"},
     )
 
     class Meta:
@@ -92,11 +107,6 @@ class RegisterForm(forms.ModelForm):
             "email",
             "password",
         ]
-        widgets = {
-            "username": forms.TextInput(
-                attrs={"class": "form-control", "placeholder": "Your username"}
-            ),
-        }
 
     def clean(self):
         cleaned_data = super().clean()
